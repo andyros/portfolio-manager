@@ -1,3 +1,4 @@
 rootProject.name = 'portfolio-manager'
+include 'pm-persistence'
 include 'pm-server'
 include 'pm-web'

@@ -1,0 +1,12 @@
+//
+// build a map of dependency artifacts. allows for centralised definiton of artifact
+// versions, serves a role similar to <dependencyManagement> in Maven.
+//
+ext {
+  libraries = [
+    'slf4j_api': 'org.slf4j:slf4j-api:1.7.5',
+	  'logback_classic': 'ch.qos.logback:logback-classic:1.1.2',
+    'persistence_api': 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final',
+    'junit': 'junit:junit:4.11'
+  ]
+}

@@ -1,3 +1,9 @@
+apply from: "./libraries.gradle"
+
+allprojects {
+  apply plugin: 'eclipse'
+}
+
 subprojects {
   apply plugin: 'java'
 
@@ -7,7 +13,8 @@ subprojects {
   }
 
   dependencies {
-    compile 'org.slf4j:slf4j-api:1.7.5'
-    testCompile "junit:junit:4.11"
+    compile (libraries.slf4j_api)
+	compile (libraries.logback_classic)
+    testCompile (libraries.junit)
   }
  }
