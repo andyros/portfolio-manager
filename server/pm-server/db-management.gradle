@@ -1,0 +1,21 @@
+// generate 
+task generateSchema << {
+    ant {
+        taskdef(name: 'hibernatetool',
+        classname: 'org.hibernate.tool.ant.HibernateToolTask',
+        classpath: configurations.compile.asPath)
+
+        mkdir(dir: "$buildDir/sql")
+
+        hibernatetool (destdir: "$buildDir/sql") {
+            annotationconfiguration(configurationfile: 'src/main/resources/hibernate.cfg.xml')
+            hbm2ddl(export: false, create:true, drop: false, outputfilename: 'create-schema.sql')
+            hbm2ddl(export: false, create:false, drop: true, outputfilename: 'drop-schema.sql')
+            classpath {
+                pathelement(path: "$buildDir/classes/main")
+            }
+        }
+    }
+}
+
+build.dependsOn generateSchema
