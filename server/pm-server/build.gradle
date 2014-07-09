@@ -14,6 +14,7 @@ buildscript {
 apply plugin: 'spring-boot'
 
 dependencies {
+    compile project(':pm-persistence')
     compile("org.springframework.boot:spring-boot-starter-web:1.1.3.RELEASE") {
         exclude module: "spring-boot-starter-tomcat"
     }
