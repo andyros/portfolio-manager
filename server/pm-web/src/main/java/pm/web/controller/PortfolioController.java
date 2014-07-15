@@ -1,4 +1,4 @@
-package pm.server.web;
+package pm.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
