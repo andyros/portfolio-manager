@@ -2,17 +2,16 @@ package pm.server.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "PM_INSTRUMENT")
+@Table(name = "PM_INSTRUMENT", uniqueConstraints = {@UniqueConstraint(
+        columnNames = "PRIMARY_IDENTIFIER")})
 public class Instrument extends AbstractEntity {
 
     @Id
@@ -21,12 +20,17 @@ public class Instrument extends AbstractEntity {
     @Column(name = "INSTRUMENT_ID", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "MARKET_ID", nullable = false)
-    private Market market;
-
     @Column(name = "PRIMARY_IDENTIFIER", nullable = false)
     private String primaryIdentifier;
+
+    public Instrument() {
+        super();
+    }
+
+    public Instrument(String primaryIdentifier) {
+        super();
+        this.primaryIdentifier = primaryIdentifier;
+    }
 
     @Override
     public Long getId() {
@@ -37,13 +41,18 @@ public class Instrument extends AbstractEntity {
         this.id = id;
     }
 
+    public String getPrimaryIdentifier() {
+        return this.primaryIdentifier;
+    }
+
+    public void setPrimaryIdentifier(String primaryIdentifier) {
+        this.primaryIdentifier = primaryIdentifier;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result =
-                prime * result
-                        + ((this.market.getId() == null) ? 0 : this.market.getId().hashCode());
         result =
                 prime
                         * result
@@ -63,13 +72,6 @@ public class Instrument extends AbstractEntity {
             return false;
         }
         Instrument other = (Instrument) obj;
-        if (this.market.getId() == null) {
-            if (other.market.getId() != null) {
-                return false;
-            }
-        } else if (!this.market.getId().equals(other.market.getId())) {
-            return false;
-        }
         if (this.primaryIdentifier == null) {
             if (other.primaryIdentifier != null) {
                 return false;
@@ -79,5 +81,4 @@ public class Instrument extends AbstractEntity {
         }
         return true;
     }
-
 }
