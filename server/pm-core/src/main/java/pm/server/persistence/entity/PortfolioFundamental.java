@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,18 +12,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "PM_PORTFOLIO_ENTRY")
-public class PortfolioEntry extends AbstractEntity {
-
-    public enum Direction {
-        BUY, SELL;
-    }
+@Table(name = "PM_PORTFOLIO_FUNDAMENTAL", uniqueConstraints = {@UniqueConstraint(columnNames = {
+        "PORTFOLIO_ID", "INSTRUMENT_ID"})})
+public class PortfolioFundamental extends AbstractEntity {
 
     @Id
-    @SequenceGenerator(name = "SEQ_PM_PORTFOLIO_ENTRY", sequenceName = "SEQ_PM_PORTFOLIO_ENTRY")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PM_PORTFOLIO_ENTRY")
+    @SequenceGenerator(name = "SEQ_PM_PORTFOLIO_FUNDAMENTAL",
+            sequenceName = "SEQ_PM_PORTFOLIO_FUNDAMENTAL")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PM_PORTFOLIO_FUNDAMENTAL")
     @Column(name = "PORTFOLIO_ENTRY_ID", nullable = false)
     private Long id;
 
@@ -37,15 +34,11 @@ public class PortfolioEntry extends AbstractEntity {
     @JoinColumn(name = "INSTRUMENT_ID", nullable = false)
     private Instrument instrument;
 
-    @Column(name = "QUANTITY", precision = 22, scale = 2, nullable = false)
-    private BigDecimal quantity;
+    @Column(name = "TOTAL_SHARES_HELD", precision = 22, scale = 2, nullable = false)
+    private BigDecimal totalSharesHeld;
 
-    @Column(name = "PRICE", precision = 22, scale = 2, nullable = false)
-    private BigDecimal price;
-
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "DIRECTION", nullable = false)
-    private Direction direction;
+    @Column(name = "COST", precision = 22, scale = 2, nullable = false)
+    private BigDecimal cost;
 
     @Override
     public Long getId() {
@@ -72,35 +65,28 @@ public class PortfolioEntry extends AbstractEntity {
         this.instrument = instrument;
     }
 
-    public BigDecimal getQuantity() {
-        return this.quantity;
+    public BigDecimal getTotalSharesHeld() {
+        return this.totalSharesHeld;
     }
 
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
+    public void setTotalSharesHeld(BigDecimal totalSharesHeld) {
+        this.totalSharesHeld = totalSharesHeld;
     }
 
-    public BigDecimal getPrice() {
-        return this.price;
+    public BigDecimal getCost() {
+        return this.cost;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Direction getDirection() {
-        return this.direction;
-    }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.instrument == null) ? 0 : this.instrument.hashCode());
+        result = prime * result + ((this.portfolio == null) ? 0 : this.portfolio.hashCode());
         return result;
     }
 
@@ -115,15 +101,21 @@ public class PortfolioEntry extends AbstractEntity {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        PortfolioEntry other = (PortfolioEntry) obj;
-        if (this.id == null) {
-            if (other.id != null) {
+        PortfolioFundamental other = (PortfolioFundamental) obj;
+        if (this.instrument == null) {
+            if (other.instrument != null) {
                 return false;
             }
-        } else if (!this.id.equals(other.id)) {
+        } else if (!this.instrument.equals(other.instrument)) {
+            return false;
+        }
+        if (this.portfolio == null) {
+            if (other.portfolio != null) {
+                return false;
+            }
+        } else if (!this.portfolio.equals(other.portfolio)) {
             return false;
         }
         return true;
     }
-
 }

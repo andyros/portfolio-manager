@@ -14,5 +14,6 @@
 		<mapping class="pm.server.persistence.entity.Instrument"/>
 		<mapping class="pm.server.persistence.entity.Portfolio"/>
 		<mapping class="pm.server.persistence.entity.PortfolioEntry"/>
+		<mapping class="pm.server.persistence.entity.PortfolioFundamental"/>
 	</session-factory>
 </hibernate-configuration>
