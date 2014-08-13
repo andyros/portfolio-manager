@@ -1,4 +1,4 @@
-package pm.server.persistence.test;
+package pm.server.test;
 
 import java.util.HashMap;
 import java.util.Map;

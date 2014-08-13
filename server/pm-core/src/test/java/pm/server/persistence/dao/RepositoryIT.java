@@ -20,8 +20,8 @@ import pm.server.persistence.entity.Instrument;
 import pm.server.persistence.entity.Portfolio;
 import pm.server.persistence.entity.PortfolioEntry;
 import pm.server.persistence.entity.PortfolioEntry.Direction;
-import pm.server.persistence.test.AbstractIntegrationTest;
-import pm.server.persistence.test.IntegrationTestStaticData;
+import pm.server.test.AbstractIntegrationTest;
+import pm.server.test.IntegrationTestStaticData;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(inheritLocations = true)
@@ -54,14 +54,14 @@ public class RepositoryIT extends AbstractIntegrationTest {
 
         // create some entries
         List<PortfolioEntry> entries = new ArrayList<>(7);
-        entries.add(newPortfolioEntry(p, "06/12/2012", "499", "5.4", "2694.6", Direction.BUY, vod));
-        entries.add(newPortfolioEntry(p, "27/10/2010", "292", "6.3", "1839.6", Direction.BUY, vod));
-        entries.add(newPortfolioEntry(p, "05/10/2014", "220", "8", "1760", Direction.BUY, vod));
-        entries.add(newPortfolioEntry(p, "06/07/2010", "712", "5.6", "3987.2", Direction.BUY, vod));
-        entries.add(newPortfolioEntry(p, "28/01/2014", "693", "4.7", "3257.1", Direction.BUY, vod));
+        entries.add(newPortfolioEntry(p, "06/12/2012", "499", "5.4", Direction.BUY, vod));
+        entries.add(newPortfolioEntry(p, "27/10/2010", "292", "6.3", Direction.BUY, vod));
+        entries.add(newPortfolioEntry(p, "05/10/2014", "220", "8", Direction.BUY, vod));
+        entries.add(newPortfolioEntry(p, "06/07/2010", "712", "5.6", Direction.BUY, vod));
+        entries.add(newPortfolioEntry(p, "28/01/2014", "693", "4.7", Direction.BUY, vod));
 
-        entries.add(newPortfolioEntry(p, "08/12/2012", "500", "5", "2500", Direction.SELL, vod));
-        entries.add(newPortfolioEntry(p, "09/12/2012", "200", "4.8", "960", Direction.SELL, vod));
+        entries.add(newPortfolioEntry(p, "08/12/2012", "500", "5", Direction.SELL, vod));
+        entries.add(newPortfolioEntry(p, "09/12/2012", "200", "4.8", Direction.SELL, vod));
 
         this.portfolioEntryRepository.save(entries);
 

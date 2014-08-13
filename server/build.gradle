@@ -6,7 +6,9 @@ allprojects {
 
 subprojects {
   apply plugin: 'java'
-
+  sourceCompatibility = '1.8'
+  targetCompatibility = '1.8'
+  
   repositories {
     mavenLocal()
     mavenCentral()
@@ -14,7 +16,7 @@ subprojects {
 
   dependencies {
     compile (libraries.slf4j_api)
-	compile (libraries.logback_classic)
+	  compile (libraries.logback_classic)
     testCompile (libraries.junit)
   }
  }

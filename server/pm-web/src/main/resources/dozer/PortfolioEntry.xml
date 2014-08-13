@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+                              http://dozer.sourceforge.net/schema/beanmapping.xsd">
+          
+  <mapping> 
+    <class-a>pm.server.persistence.entity.PortfolioEntry</class-a>
+    <class-b>pm.server.web.model.PortfolioEntryModel</class-b>
+    <field>
+      <a>portfolio.id</a>
+      <b>portfolioId</b>
+    </field>
+    <field>
+      <a>instrument.id</a>
+      <b>instrumentId</b>
+    </field>
+  </mapping>  
+
+</mappings> 

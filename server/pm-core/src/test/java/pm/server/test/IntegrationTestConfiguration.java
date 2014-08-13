@@ -1,4 +1,4 @@
-package pm.server.persistence.test;
+package pm.server.test;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -40,6 +40,12 @@ public class PortfolioFundamental extends AbstractEntity {
     @Column(name = "COST", precision = 22, scale = 2, nullable = false)
     private BigDecimal cost;
 
+    public PortfolioFundamental() {
+        super();
+        this.cost = BigDecimal.ZERO;
+        this.totalSharesHeld = BigDecimal.ZERO;
+    }
+
     @Override
     public Long getId() {
         return this.id;

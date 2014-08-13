@@ -1,4 +1,4 @@
-package pm.server.persistence;
+package pm.server;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +11,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaAuditing
 @EnableTransactionManagement
 @EnableAutoConfiguration
-public class ApplicationConfiguration {
-
+public class PMCoreApplication {
 }
