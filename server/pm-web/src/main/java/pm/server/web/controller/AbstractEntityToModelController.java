@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pm.server.persistence.entity.AbstractEntity;
 import pm.server.web.model.conversion.ModelConvertor;
 
-public abstract class AbstractController<E extends AbstractEntity, M> {
+public abstract class AbstractEntityToModelController<E extends AbstractEntity, M> {
 
     @Resource
     protected ModelConvertor modelConvertor;
@@ -19,7 +19,7 @@ public abstract class AbstractController<E extends AbstractEntity, M> {
     private Class<E> entityClass;
     private Class<M> modelClass;
 
-    public AbstractController(Class<E> entityClass, Class<M> modelClass) {
+    public AbstractEntityToModelController(Class<E> entityClass, Class<M> modelClass) {
         super();
         this.entityClass = entityClass;
         this.modelClass = modelClass;

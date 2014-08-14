@@ -36,6 +36,7 @@ public class PMWebApplication {
         List<String> mappingFileUrls = new ArrayList<String>();
         mappingFileUrls.add("dozer/Portfolio.xml");
         mappingFileUrls.add("dozer/PortfolioEntry.xml");
+        mappingFileUrls.add("dozer/PortfolioFundamental.xml");
 
         DozerBeanMapper dbm = new DozerBeanMapper();
         dbm.setMappingFiles(mappingFileUrls);

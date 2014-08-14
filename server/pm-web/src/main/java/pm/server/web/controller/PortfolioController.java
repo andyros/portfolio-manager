@@ -20,7 +20,7 @@ import pm.server.web.model.PortfolioModel;
 
 @RestController
 @RequestMapping("/service/portfolio")
-public class PortfolioController extends AbstractController<Portfolio, PortfolioModel> {
+public class PortfolioController extends AbstractEntityToModelController<Portfolio, PortfolioModel> {
 
     @Resource
     private PortfolioRepository portfolioRepository;

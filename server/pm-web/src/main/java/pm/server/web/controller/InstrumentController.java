@@ -20,7 +20,7 @@ import pm.server.web.model.InstrumentModel;
 
 @RestController
 @RequestMapping("/service/instrument")
-public class InstrumentController extends AbstractController<Instrument, InstrumentModel> {
+public class InstrumentController extends AbstractEntityToModelController<Instrument, InstrumentModel> {
 
     @Resource
     private InstrumentRepository instrumentRepository;

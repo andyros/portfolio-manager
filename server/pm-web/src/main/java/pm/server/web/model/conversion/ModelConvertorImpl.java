@@ -16,6 +16,23 @@ public class ModelConvertorImpl implements ModelConvertor {
     private Mapper dozerMapper;
 
     @Override
+    public <T> T convert(Object source, Class<T> destinationClass) {
+        if (source == null) {
+            return null;
+        }
+        return this.dozerMapper.map(source, destinationClass);
+    }
+
+    @Override
+    public <T> List<T> convert(Collection<?> objects, Class<T> destinationClass) {
+        List<T> all = new ArrayList<T>(objects.size());
+        for (Object o : objects) {
+            all.add(this.dozerMapper.map(o, destinationClass));
+        }
+        return all;
+    }
+
+    @Override
     public <M, E extends AbstractEntity> M entityToModel(E entity, Class<M> modelClass) {
         if (entity == null) {
             return null;

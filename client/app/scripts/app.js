@@ -14,14 +14,15 @@ var clientApp = angular.module('clientApp', [
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ngGrid'
   ]);
 
 clientApp.config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'views/fundamentals.html',
+        controller: 'FundamentalsCtrl'
       })
       .when('/about', {
         templateUrl: 'views/about.html',

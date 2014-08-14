@@ -1,25 +1,22 @@
 package pm.server.core;
 
 import java.util.List;
+import java.util.Map;
 
-import pm.server.persistence.entity.Portfolio;
+import pm.server.core.dto.PortfolioFundamental;
+import pm.server.persistence.entity.Instrument;
 import pm.server.persistence.entity.PortfolioEntry;
-import pm.server.persistence.entity.PortfolioFundamental;
 
 public interface PortfolioCalculationService {
 
     /**
-     * Recalculates the fundamentals for the portfolio.
+     * Calculates the fundamentals for the given portfolio entries.
      *
-     * If the new portfolio entries contain an instrument for which there is no existing fundamental
-     * then one will be created but not persisted.
+     * Entries are grouped by instrument id and fundamentals are calculated. PortfolioFundamental
+     * objects are returned for each instrument id, containing the calculated results.
      *
-     * When a fundamental does exist then it will be retrieved from the database but returned in a
-     * dirty state. It is not the responsibility of this method to persist the results.
-     *
-     * @param p the portfolio
-     * @param newEntries the new portfolio entries
-     * @return the created / updated fundamentals
+     * @param entries the entries to calculate for
+     * @return a map of the calculated fundamentals, keyed by instrument
      */
-    List<PortfolioFundamental> recalculateFundamentals(Portfolio p, List<PortfolioEntry> newEntries);
+    Map<Instrument, PortfolioFundamental> recalculateFundamentals(List<PortfolioEntry> entries);
 }

@@ -1,0 +1,10 @@
+[
+  {
+     "instrumentId": 9,
+     "instrumentName": "VOD",
+     "currentPrice": 10,
+     "totalSharesHeld": 5300,
+     "totalCost": 5300,
+     "marketCost": 53000
+  }
+]

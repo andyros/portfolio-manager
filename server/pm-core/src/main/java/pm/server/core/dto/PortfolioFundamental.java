@@ -1,39 +1,24 @@
-package pm.server.web.model;
+package pm.server.core.dto;
 
 import java.math.BigDecimal;
 
-public class PortfolioFundamentalModel {
+import pm.server.persistence.entity.Instrument;
 
-    private Long instrumentId;
-    private String instrumentName;
+public class PortfolioFundamental {
+
+    private Instrument instrument;
     private BigDecimal currentPrice;
 
     private BigDecimal totalSharesHeld;
     private BigDecimal totalCost;
     private BigDecimal marketCost;
 
-    public Long getInstrumentId() {
-        return this.instrumentId;
+    public Instrument getInstrument() {
+        return this.instrument;
     }
 
-    public void setInstrumentId(Long instrumentId) {
-        this.instrumentId = instrumentId;
-    }
-
-    public String getInstrumentName() {
-        return this.instrumentName;
-    }
-
-    public void setInstrumentName(String instrumentName) {
-        this.instrumentName = instrumentName;
-    }
-
-    public BigDecimal getCurrentPrice() {
-        return this.currentPrice;
-    }
-
-    public void setCurrentPrice(BigDecimal currentPrice) {
-        this.currentPrice = currentPrice;
+    public void setInstrument(Instrument instrument) {
+        this.instrument = instrument;
     }
 
     public BigDecimal getTotalSharesHeld() {
@@ -50,6 +35,14 @@ public class PortfolioFundamentalModel {
 
     public void setTotalCost(BigDecimal totalCost) {
         this.totalCost = totalCost;
+    }
+
+    public BigDecimal getCurrentPrice() {
+        return this.currentPrice;
+    }
+
+    public void setCurrentPrice(BigDecimal currentPrice) {
+        this.currentPrice = currentPrice;
     }
 
     public BigDecimal getMarketCost() {

@@ -8,13 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.util.Assert;
-
+import pm.server.core.dto.PortfolioFundamental;
 import pm.server.persistence.entity.Instrument;
 import pm.server.persistence.entity.Portfolio;
 import pm.server.persistence.entity.PortfolioEntry;
 import pm.server.persistence.entity.PortfolioEntry.Direction;
-import pm.server.persistence.entity.PortfolioFundamental;
 
 public class TestUtil {
 
@@ -42,10 +40,10 @@ public class TestUtil {
     public static Map<Instrument, PortfolioFundamental> fundamentalListToMap(
             List<PortfolioFundamental> list) {
         Map<Instrument, PortfolioFundamental> map = new HashMap<>(list.size());
-        for (PortfolioFundamental pf : list) {
-            Assert.isTrue(!map.containsKey(pf.getInstrument()), "duplicate PortfolioFundamental");
-            map.put(pf.getInstrument(), pf);
-        }
+        // for (PortfolioFundamental pf : list) {
+        // Assert.isTrue(!map.containsKey(pf.getInstrument()), "duplicate PortfolioFundamental");
+        // map.put(pf.getInstrument(), pf);
+        // }
         return map;
     }
 }

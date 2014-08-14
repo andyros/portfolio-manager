@@ -1,0 +1,10 @@
+[
+      {
+      "id": 9,
+      "portfolioId": 2,
+      "instrumentId": 9,
+      "quantity": 50000,
+      "price": 5,
+      "direction": "SELL"
+   }
+]

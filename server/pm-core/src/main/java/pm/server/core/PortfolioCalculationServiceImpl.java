@@ -8,49 +8,59 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import pm.server.persistence.dao.PortfolioFundamentalRepository;
+import javax.annotation.Resource;
+
+import pm.server.core.dto.PortfolioFundamental;
 import pm.server.persistence.entity.Instrument;
-import pm.server.persistence.entity.Portfolio;
 import pm.server.persistence.entity.PortfolioEntry;
 import pm.server.persistence.entity.PortfolioEntry.Direction;
-import pm.server.persistence.entity.PortfolioFundamental;
 
 public class PortfolioCalculationServiceImpl implements PortfolioCalculationService {
 
-    private PortfolioFundamentalRepository portfolioFundamentalRepository;
+    @Resource
+    private MarketPriceService marketPriceService;
 
     @Override
-    public List<PortfolioFundamental> recalculateFundamentals(Portfolio p,
-            List<PortfolioEntry> newEntries) {
-
-        Map<Instrument, List<PortfolioEntry>> entriesByInstrumentId = mapByInstrumentId(newEntries);
-        List<PortfolioFundamental> fundamentals = new ArrayList<>(entriesByInstrumentId.size());
+    public Map<Instrument, PortfolioFundamental> recalculateFundamentals(
+            List<PortfolioEntry> entries) {
+        Map<Instrument, List<PortfolioEntry>> entriesByInstrumentId = mapByInstrumentId(entries);
+        Map<Instrument, PortfolioFundamental> fundamentals =
+                new HashMap<>(entriesByInstrumentId.size());
 
         for (Entry<Instrument, List<PortfolioEntry>> e : entriesByInstrumentId.entrySet()) {
             Instrument i = e.getKey();
 
-            PortfolioFundamental fundamental =
-                    this.portfolioFundamentalRepository.getByPortfolioIdAndInstrumentId(p.getId(),
-                            i.getId());
-
-            if (fundamental == null) {
-                fundamental = new PortfolioFundamental();
-                fundamental.setInstrument(i);
-                fundamental.setPortfolio(p);
+            PortfolioFundamental f = fundamentals.get(i.getId());
+            if (f == null) {
+                f = new PortfolioFundamental();
+                f.setInstrument(i);
+                f.setTotalCost(BigDecimal.ZERO);
+                f.setTotalSharesHeld(BigDecimal.ZERO);
+                fundamentals.put(i, f);
             }
 
-            List<PortfolioEntry> newEntriesForInstrument = e.getValue();
-            recalculate(fundamental, newEntriesForInstrument);
-            fundamentals.add(fundamental);
+            List<PortfolioEntry> entriesForInstrument = e.getValue();
+            recalculate(f, entriesForInstrument);
+        }
+
+        for (Entry<Instrument, PortfolioFundamental> e : fundamentals.entrySet()) {
+            Instrument i = e.getKey();
+            PortfolioFundamental f = e.getValue();
+
+            BigDecimal currentPrice = this.marketPriceService.getCurrentPrice(i.getId());
+            BigDecimal marketCost = currentPrice.multiply(f.getTotalSharesHeld());
+
+            f.setCurrentPrice(currentPrice);
+            f.setMarketCost(marketCost.setScale(2, RoundingMode.HALF_UP));
         }
 
         return fundamentals;
     }
 
-    private void recalculate(PortfolioFundamental fundamental, List<PortfolioEntry> newEntries) {
+    private void recalculate(PortfolioFundamental fundamental, List<PortfolioEntry> entries) {
         BigDecimal costDelta = BigDecimal.ZERO;
         BigDecimal totalSharesDelta = BigDecimal.ZERO;
-        for (PortfolioEntry pe : newEntries) {
+        for (PortfolioEntry pe : entries) {
             Direction direction = pe.getDirection();
 
             BigDecimal entryCost = pe.getQuantity().multiply(pe.getPrice());
@@ -59,10 +69,10 @@ public class PortfolioCalculationServiceImpl implements PortfolioCalculationServ
                     addOrSubtractByDirection(direction, totalSharesDelta, pe.getQuantity());
         }
 
-        BigDecimal newCost = fundamental.getCost().add(costDelta);
+        BigDecimal newCost = fundamental.getTotalCost().add(costDelta);
         BigDecimal newTotalShares = fundamental.getTotalSharesHeld().add(totalSharesDelta);
 
-        fundamental.setCost(newCost.setScale(2, RoundingMode.HALF_UP));
+        fundamental.setTotalCost(newCost.setScale(2, RoundingMode.HALF_UP));
         fundamental.setTotalSharesHeld(newTotalShares.setScale(2, RoundingMode.HALF_UP));
     }
 
@@ -89,10 +99,5 @@ public class PortfolioCalculationServiceImpl implements PortfolioCalculationServ
             default:
                 throw new IllegalStateException("Unhandled direction '" + direction + "'");
         }
-    }
-
-    public void setPortfolioFundamentalRepository(
-            PortfolioFundamentalRepository portfolioFundamentalRepository) {
-        this.portfolioFundamentalRepository = portfolioFundamentalRepository;
     }
 }

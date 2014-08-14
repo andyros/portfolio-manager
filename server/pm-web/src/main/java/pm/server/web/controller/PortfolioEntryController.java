@@ -25,7 +25,7 @@ import pm.server.web.model.PortfolioEntryModel;
 @RestController
 @RequestMapping("/service/portfolio/entry")
 public class PortfolioEntryController extends
-        AbstractController<PortfolioEntry, PortfolioEntryModel> {
+        AbstractEntityToModelController<PortfolioEntry, PortfolioEntryModel> {
 
     @Resource
     private PortfolioRepository portfolioRepository;

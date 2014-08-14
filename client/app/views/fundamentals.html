@@ -1,0 +1,57 @@
+<div>
+  Portfolio: <select ng-model="activePortfolio" 
+                     ng-options="p.name for p in portfolios"
+                     ng-change="onPortfolioChanged()">
+             </select>
+  Currently selected {{ activePortfolio }}
+  
+  <br />
+  <br />
+  Portfolios Json
+  <p>
+    {{ portfolios | json }}
+  </p>
+  <br />
+  Fundamentals Json
+  <p>
+    {{ fundamentals | json }}
+  </p>
+  <br />
+  Instruments Json
+  <p>
+    {{ instruments | json }}
+  </p>
+  <br />
+  
+
+  <div class="gridStyle" ng-grid="fundamentalsGridOptions">
+  </div>
+  
+  <br />
+  
+  <div>
+    <div ng-repeat="e in newEntries">
+      <select ng-model="e.instrumentName" ng-options="i.instrumentName for i in instruments"></select>
+      <select ng-model="e.direction">
+        <option value="BUY">BUY</option>
+        <option value="SELL">SELL</option>
+      </select>
+      <input text="text" ng-model="e.quantity" />
+      <input text="text" ng-model="e.price" />
+    </div>
+  </div>
+  
+  <br />
+  Selected fundamentals Json
+  <p>
+    {{ selectedFundamentals }}
+  </p>
+  <br />
+  Selected Entries Json
+  <p>
+   {{ fundamentalEntries | json }}
+  </p>
+  
+   <div class="gridStyle" ng-grid="entriesGridOptions">
+  </div>
+</div>
