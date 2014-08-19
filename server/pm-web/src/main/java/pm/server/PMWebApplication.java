@@ -3,6 +3,7 @@ package pm.server;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.filters.CorsFilter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -43,9 +44,13 @@ public class PMWebApplication {
         return dbm;
     }
 
-
     @Bean
     public ModelConvertor modelConvertor() {
         return new ModelConvertorImpl();
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        return new CorsFilter();
     }
 }

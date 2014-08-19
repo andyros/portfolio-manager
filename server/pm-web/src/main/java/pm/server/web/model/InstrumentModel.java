@@ -4,6 +4,7 @@ public class InstrumentModel {
 
     private Long id;
     private String primaryIdentifier;
+    private String name;
 
     public Long getId() {
         return this.id;
@@ -13,11 +14,19 @@ public class InstrumentModel {
         this.id = id;
     }
 
-    public String getIdentifier() {
+    public String getPrimaryIdentifier() {
         return this.primaryIdentifier;
     }
 
-    public void setIdentifier(String identifier) {
-        this.primaryIdentifier = identifier;
+    public void setPrimaryIdentifier(String primaryIdentifier) {
+        this.primaryIdentifier = primaryIdentifier;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -15,7 +15,8 @@ var clientApp = angular.module('clientApp', [
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngGrid'
+    'ngGrid',
+    'ui.bootstrap'
   ]);
 
 clientApp.config(function ($routeProvider) {
@@ -27,6 +28,10 @@ clientApp.config(function ($routeProvider) {
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
+      })
+      .when('/instruments', {
+        templateUrl: 'views/instruments.html',
+        controller: 'InstrumentlookupCtrl'
       })
       .otherwise({
         redirectTo: '/'

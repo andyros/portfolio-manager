@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import pm.server.core.InstrumentSearchService;
+import pm.server.core.InstrumentSearchServiceImpl;
 import pm.server.core.MarketPriceService;
 import pm.server.core.MarketPriceServiceImpl;
 import pm.server.core.PortfolioCalculationService;
@@ -27,5 +29,11 @@ public class PMCoreApplication {
     @Bean
     public MarketPriceService marketPriceService() {
         return new MarketPriceServiceImpl();
+    }
+
+
+    @Bean
+    public InstrumentSearchService instrumentSearchService() {
+        return new InstrumentSearchServiceImpl();
     }
 }

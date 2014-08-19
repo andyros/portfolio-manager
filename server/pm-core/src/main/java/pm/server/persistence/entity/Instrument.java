@@ -23,6 +23,9 @@ public class Instrument extends AbstractEntity {
     @Column(name = "PRIMARY_IDENTIFIER", nullable = false)
     private String primaryIdentifier;
 
+    @Column(name = "NAME", nullable = false)
+    private String name;
+
     public Instrument() {
         super();
     }
@@ -47,6 +50,14 @@ public class Instrument extends AbstractEntity {
 
     public void setPrimaryIdentifier(String primaryIdentifier) {
         this.primaryIdentifier = primaryIdentifier;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

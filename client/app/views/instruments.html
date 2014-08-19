@@ -1,0 +1,21 @@
+<div>
+  
+  <!-- TODO integrate lookup into main page -->
+  
+    <h4>Asynchronous results</h4>
+    <pre>Model: {{selected | json}}</pre>
+    <input type="text" 
+           ng-model="selected" 
+           placeholder="<Instrument Name>" 
+           typeahead="instr as instr.name for instr in searchInstruments($viewValue)" 
+           typeahead-loading="loadingInstruments" 
+           class="form-control">
+    <i ng-show="loadingInstruments" class="glyphicon glyphicon-refresh"></i>
+
+    <h3>Last Result</h3>
+    data {{ data }} <br /><br />
+    status {{ status }} <br /><br />
+    headers {{ headers }} <br /><br />
+    config {{ config }} <br /><br />
+    
+</div>

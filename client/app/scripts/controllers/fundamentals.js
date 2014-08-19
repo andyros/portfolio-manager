@@ -9,7 +9,6 @@ var clientApp = angular.module('clientApp');
 
 clientApp.controller('FundamentalsCtrl', function($scope, $http, portfolioService) {
 
-  $scope.selectedFundamentals = [];
   $scope.fundamentalEntries = [];
   $scope.newEntries = [];
   
@@ -31,7 +30,6 @@ clientApp.controller('FundamentalsCtrl', function($scope, $http, portfolioServic
   $scope.onPortfolioChanged = function() {
     portfolioService.findPortfolioFundamentals($scope.activePortfolio.id).success(function(data) {
       $scope.fundamentals = data;
-      $scope.selectedFundamentals = [];
       $scope.fundamentalEntries = [];
     });
   };
@@ -45,7 +43,6 @@ clientApp.controller('FundamentalsCtrl', function($scope, $http, portfolioServic
 
   $scope.fundamentalsGridOptions = {
           data: 'fundamentals',
-          selectedItems: $scope.selectedFundamentals,
           multiSelect: false,
           columnDefs: [
             { field: 'instrumentName', displayName: 'Instrument' },

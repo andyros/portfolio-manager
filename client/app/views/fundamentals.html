@@ -1,57 +1,62 @@
 <div>
-  Portfolio: <select ng-model="activePortfolio" 
+  <div id="portfolioSelector">
+    Portfolio: <select ng-model="activePortfolio" 
                      ng-options="p.name for p in portfolios"
                      ng-change="onPortfolioChanged()">
-             </select>
-  Currently selected {{ activePortfolio }}
-  
-  <br />
-  <br />
-  Portfolios Json
-  <p>
-    {{ portfolios | json }}
-  </p>
-  <br />
-  Fundamentals Json
-  <p>
-    {{ fundamentals | json }}
-  </p>
-  <br />
-  Instruments Json
-  <p>
-    {{ instruments | json }}
-  </p>
-  <br />
-  
-
-  <div class="gridStyle" ng-grid="fundamentalsGridOptions">
+              </select>
   </div>
-  
-  <br />
-  
-  <div>
-    <div ng-repeat="e in newEntries">
-      <select ng-model="e.instrumentName" ng-options="i.instrumentName for i in instruments"></select>
-      <select ng-model="e.direction">
-        <option value="BUY">BUY</option>
-        <option value="SELL">SELL</option>
-      </select>
-      <input text="text" ng-model="e.quantity" />
-      <input text="text" ng-model="e.price" />
-    </div>
-  </div>
-  
-  <br />
-  Selected fundamentals Json
-  <p>
-    {{ selectedFundamentals }}
-  </p>
-  <br />
-  Selected Entries Json
-  <p>
-   {{ fundamentalEntries | json }}
-  </p>
-  
-   <div class="gridStyle" ng-grid="entriesGridOptions">
-  </div>
+	<div class="row clearfix">
+		<div class="col-md-8 column">
+      <div id="portfolioGrid">
+        <div class="gridStyle" ng-grid="fundamentalsGridOptions"></div>
+      </div>		  
+		</div>
+		<div class="col-md-4 column">
+		  <span ng-if="fundamentalEntries.length > 0">
+        <div id="selectedEntries">
+          <div class="gridStyle" ng-grid="entriesGridOptions"></div>
+        </div>
+       </span>
+		  </div>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+      <div id="portfolioAdd" ng-controller="EntriesCtrl">
+        <h5>Add Portfolio Entries</h5>
+        <form class="form-inline">
+	        <div ng-repeat="e in newEntries">
+		        <div class="form-group">
+		          <input type="text" 
+		                 ng-model="selected" 
+		                 placeholder="<Instrument Name>" 
+		                 typeahead="instr as instr.name for instr in searchInstruments($viewValue)" 
+		                 typeahead-loading="loadingInstruments" 
+		                 class="form-control">
+		       </div>
+		       <div class="form-group">
+            <select class="form-control" ng-model="e.direction">
+              <option value="BUY">BUY</option>
+		          <option value="SELL">SELL</option>
+	          </select>
+		       </div>
+		       <div class="form-group">
+            <label class="sr-only" for="quantity">Quantity</label>
+            <input type="number" class="form-control" id="quantity" placeholder="Quantity">
+		       </div>
+		       <div class="form-group">
+            <label class="sr-only" for="price">Price</label>
+            <input type="number" class="form-control" id="price" placeholder="Price">
+	         </div>
+	        </div>
+	        <br />
+	        <div class="form-group">
+		        <button ng-click="addEmptyPortfolioEntry()" class="btn btn-default">Add Another</button>
+	          <button ng-click="" type="submit" class="btn btn-primary">Save Entries</button>
+	          <i ng-show="loadingInstruments" class="glyphicon glyphicon-refresh"></i>
+          </div>
+        </form>  
+      </div>
+		</div>
+	</div>
 </div>
